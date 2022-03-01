@@ -4,7 +4,7 @@
 
 transform_matrix_to_adjacency_list()
 
-transform_adjacency_to_matrix_list()
+transform_adjacency_list_to_matrix()
 
 > caracterisation des graphes 
 
