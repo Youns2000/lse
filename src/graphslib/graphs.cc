@@ -1,35 +1,69 @@
 #include "graphs.hh"
 
-namespace gad
+// template <typename T>
+// Graph<T>::Graph([std::vector<Edge> edges]) : edges_(edges)
+// {
+// }
+
+template <typename T>
+Graph<T> Graph<T>::add_edges(std::vector<Edge<T>> edges)
 {
-    Graph Graph::add_node(T* data)
+    if (!edges.empty())
     {
-
+        for (auto& e : edges)
+            edges_.push_back(e);
     }
-    Graph Graph::remove_node(long id_)
+    return *this;
+}
+
+template <typename T>
+bool contains(std::vector<T> vec, const T& elem)
+{
+    bool result = false;
+    if( find(vec.begin(), vec.end(), elem) != vec.end() )
     {
-
+        result = true;
     }
-    Node Graph::find_node()
+    return result;
+}
+
+template <typename T>
+int Graph<T>::get_nb_nodes()
+{
+    int total = 0;
+    std::vector<T> vec;
+    for (auto& e : edges_)
     {
-
+        if (e.src_ == e.dest_ && !contains(vec, e.src_))
+        {
+            vec.push_back(e.src_);
+            total += 1;
+        }
+        else
+        {
+            if (!contains(vec, e.src_))
+            {
+                vec.push_back(e.src_);
+                total += 1;
+            }
+            if (!contains(vec, e.dest_))
+            {
+                vec.push_back(e.dest_);
+                total += 1;
+            }
+        }
     }
-    Edge Graph::find_edge()
-    {
+    return total;
+}
 
-    }
+template <typename T>
+int Graph<T>::get_nb_edges()
+{
+    return edges_.size();
+}
 
-    std::array<std::array<int, nb_nodes>, nb_nodes> Graph::graph_to_adj_matrix()
-    {
-
-    }
-
-    size_t Graph::get_nb_nodes()
-    {
-
-    }
-    bool Graph::is_connected()
-    {
-
-    }
+template <typename T>
+bool Graph<T>::is_connected()
+{
+    return true;
 }

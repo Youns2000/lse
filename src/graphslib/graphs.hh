@@ -1,27 +1,29 @@
-#include <iostream>
-#include <array>
+#pragma once
 
-#include "node.hh"
+#include <iostream>
+#include <vector>
+#include <optional>
+
 #include "edge.hh"
 
-namespace gad
+template <typename T>
+class Graph
 {
-    template <typename T>
-    class Graph
+public:
+    // Graph(std::optional<std::vector<Edge>> edges) : edges_(edges) {}
+    Graph() = default;
+    Graph<T> add_edges(std::vector<Edge<T>> edges);
+    int get_nb_nodes();
+    int get_nb_edges();
+    bool is_connected();
+
+    template <typename U>
+    friend std::ostream& operator<<(std::ostream& os, const Graph<U>& g)
     {
-    public:
-        Graph add_node(T* data);
-        Graph remove_node(long id_);
-        Node find_node();
-        Edge find_edge();
+        for (auto& e : g.edges_)
+            os << e << "\n";
+        return os;
+    }
 
-        std::array<std::array<int, nb_nodes>, nb_nodes> graph_to_adj_matrix();
-
-        size_t get_nb_nodes();
-        bool is_connected();
-
-    private:
-        size_t nb_nodes;
-        bool connected;
-    };
-}
+    std::vector<Edge<T>> edges_;
+};
