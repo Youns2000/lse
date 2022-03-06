@@ -6,16 +6,18 @@
 
 #include "edge.hh"
 
+using namespace std;
+
 template <typename T>
 class Graph
 {
 public:
-    // Graph(std::optional<std::vector<Edge>> edges) : edges_(edges) {}
     Graph() = default;
     Graph<T> add_edges(std::vector<Edge<T>> edges);
     int get_nb_nodes();
     int get_nb_edges();
     bool is_connected();
+    vector<vector<T>> convert_to_adjancy_list();
 
     template <typename U>
     friend std::ostream& operator<<(std::ostream& os, const Graph<U>& g)

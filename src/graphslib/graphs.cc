@@ -1,10 +1,5 @@
 #include "graphs.hh"
 
-// template <typename T>
-// Graph<T>::Graph([std::vector<Edge> edges]) : edges_(edges)
-// {
-// }
-
 template <typename T>
 Graph<T> Graph<T>::add_edges(std::vector<Edge<T>> edges)
 {
@@ -20,7 +15,7 @@ template <typename T>
 bool contains(std::vector<T> vec, const T& elem)
 {
     bool result = false;
-    if( find(vec.begin(), vec.end(), elem) != vec.end() )
+    if(find(vec.begin(), vec.end(), elem) != vec.end())
     {
         result = true;
     }
@@ -66,4 +61,16 @@ template <typename T>
 bool Graph<T>::is_connected()
 {
     return true;
+}
+
+template <typename T>
+vector<vector<T>> Graph<T>::convert_to_adjancy_list()
+{
+    vector<vector<pair<T, T>>> adj_list;
+    for (auto& e : edges_)
+    {
+        adj_list[e.src_].push_back(make_pair(e.dest_, e.data_));
+        
+    }
+    return adj_list;
 }
