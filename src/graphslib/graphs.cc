@@ -64,13 +64,13 @@ bool Graph<T>::is_connected()
 }
 
 template <typename T>
-vector<vector<T>> Graph<T>::convert_to_adjancy_list()
+vector<vector<pair<T, T>>> Graph<T>::convert_to_adjancy_list()
 {
     vector<vector<pair<T, T>>> adj_list;
+
     for (auto& e : edges_)
     {
-        adj_list[e.src_].push_back(make_pair(e.dest_, e.data_));
-        
+        adj_list[e.src_].push_back(make_pair(e.dest_, e.data_));    
     }
     return adj_list;
 }

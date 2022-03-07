@@ -17,7 +17,7 @@ public:
     int get_nb_nodes();
     int get_nb_edges();
     bool is_connected();
-    vector<vector<T>> convert_to_adjancy_list();
+    vector<vector<pair<T, T>>> convert_to_adjancy_list();
 
     template <typename U>
     friend std::ostream& operator<<(std::ostream& os, const Graph<U>& g)

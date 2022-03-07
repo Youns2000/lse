@@ -27,7 +27,7 @@ $(GLIB): $(OBJ)
 $(GAD_BIN): $(GAD_OBJ)
 	$(LINK.cc) $^ $(LDLIBS) -o $@
 
-$(TESTS_BIN): LDLIBS += -lgtest
+$(TESTS_BIN): LDLIBS += -lgtest -lpthread
 $(TESTS_BIN): $(TESTS_OBJ)
 	$(LINK.cc) $^ $(LDLIBS) -o $@
 
@@ -35,6 +35,6 @@ check: $(TESTS_BIN)
 	./$(TESTS_BIN)
 
 clean:
-	$(RM) $(GLIB) $(OBJ) $(GAD_OBJ) $(GAD_BIN)
+	$(RM) $(GLIB) $(OBJ) $(GAD_OBJ) $(GAD_BIN) $(TESTS_OBJ)
 
 .PHONY: all check clean

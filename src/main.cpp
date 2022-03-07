@@ -9,7 +9,6 @@ int main()
 {
   Edge e('c', 'd', '7');
 
-  // auto e = Edge<int>{1, 2, 3};
   Graph<int> g;
   g.add_edges({{1, 2, 3}, {0, 6, 1}, {2, 3, 1}});
   g.add_edges({{1, 2, 90}});

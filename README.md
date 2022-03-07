@@ -89,4 +89,15 @@ Unsupervised learning
 
 http://snap.stanford.edu/class/cs224w-2015/projects_2015/Anomaly_Detection_in_Graphs.pdf
 
+https://orbilu.uni.lu/bitstream/10993/38853/1/1002472.pdf
+
 ****************************************************************
+
+Approche visée:
+
+*Decomposition de graphes en sous structures pondérées*
+
+*Calculer la similarité entre les branches*
+
+*Evaluer la compléxité spacial et temporel pour une approche plus efficace*
+

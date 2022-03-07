@@ -1,10 +1,5 @@
 #include <gtest/gtest.h>
-// #include "syntax_core.hh"
-// #include "syntax_movements.hh"
-// #include "syntax_solver.hh"
-
-// GTest main function
-// runs the syntax tests
+#include "graphlib_tests.hh"
 
 int main(int argc, char** argv)
 {
