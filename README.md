@@ -1,15 +1,31 @@
 # LSE detection d'anomalie sur des graphes de donnée
 
+> # *METRIQUES*
+- Average Degree
+- Average Weighted Degree
+- Network Diameter
+- Graph density
+- HITS (Hyperlink-Induced Topic Search)
+- Modularity
+- PageRank
+- Connected Components
+- Average Clustering Components
+- Average Clustering Coefficient
+- Eigenvector Centrality
+- Average Path Length
+
+
+
+
+
 > manipulation des formats:
 
 transform_matrix_to_adjacency_list()
-
 transform_adjacency_list_to_matrix()
 
 > caracterisation des graphes
 
 get_node_number(G)
-
 get_edge_number(G)
 
 ---
@@ -25,11 +41,8 @@ get_edge_number(G)
 * méthodes de calcul de distances dans les graphes
 
 get_node_number(G)
-
 get_node_distance(G1, G2)
-
 get_edge_number()
-
 get_edge_distance(G1, G2)
 
 ---
@@ -42,6 +55,10 @@ get_edge_distance(G1, G2)
 
 -> data (matrices; listes d'adjacence)
 
+***********************************
+# *Data sets*
+
+https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/OPQMVF
 
 ***********************************
 # *Manipulation des graphes*

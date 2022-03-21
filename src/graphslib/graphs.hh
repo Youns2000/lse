@@ -14,11 +14,20 @@ class Graph
 public:
     Graph() = default;
     Graph<T> add_edges(std::vector<Edge<T>> edges);
+    vector<vector<pair<T, T>>> convert_to_adjancy_list();
+
     int get_nb_nodes();
     int get_nb_edges();
     bool is_connected();
-    vector<vector<pair<T, T>>> convert_to_adjancy_list();
+    bool is_edge_connected();
+    int average_degree();
+    int average_path_length();
+    int modularity();
+    int connected_components();
+    int eccentricity(T* node);
+    float density();
 
+    
     template <typename U>
     friend std::ostream& operator<<(std::ostream& os, const Graph<U>& g)
     {
@@ -27,5 +36,6 @@ public:
         return os;
     }
 
+    bool directed_;
     std::vector<Edge<T>> edges_;
 };

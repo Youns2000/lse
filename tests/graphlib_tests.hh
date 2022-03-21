@@ -42,13 +42,13 @@ TEST(graphlib_tests, graph_to_adj_list)
         {make_pair(1, 3)}
     };
 
-    // vector<vector<pair<int, int>>> adj_list = g.convert_to_adjancy_list();
+    vector<vector<pair<int, int>>> adj_list = g.convert_to_adjancy_list();
 
-    // EXPECT_EQ(adj_list.size(), expected_adj_list.size());
-    // EXPECT_EQ(adj_list, expected_adj_list);
+    EXPECT_EQ(adj_list.size(), expected_adj_list.size());
+    EXPECT_EQ(adj_list, expected_adj_list);
 
-    // for (size_t i = 0; i < expected_adj_list.size(); i++)
-    // {
-    //     ASSERT_THAT(adj_list[i], expected_adj_list[i]);   
-    // }
+    for (size_t i = 0; i < expected_adj_list.size(); i++)
+    {
+        EXPECT_EQ(adj_list[i], expected_adj_list[i]);   
+    }
 }

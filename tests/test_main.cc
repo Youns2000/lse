@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "graphlib_tests.hh"
+#include "gad_tests.hh"
 
 int main(int argc, char** argv)
 {
