@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -Werror -pedantic -std=c++20
-# CXXFLAGS = -std=c++20
 CPPFLAGS = -Isrc/
+LIBS = -lgvc -lcgraph
 
 GLIB = graphslib.a
 
@@ -9,7 +9,7 @@ ARFLAGS ?= rcs
 
 OBJ = src/graphslib/graphs.o
 
-GAD_OBJ = src/main.o $(OBJ) $(GLIB)
+GAD_OBJ = $(OBJ) $(GLIB) src/main.o
 GAD_BIN = gad
 
 TESTS_OBJ = tests/test_main.o $(OBJ) $(GLIB)
@@ -25,7 +25,7 @@ $(GLIB): $(OBJ)
 	$(AR) $(ARFLAGS) $@ $^
 
 $(GAD_BIN): $(GAD_OBJ)
-	$(LINK.cc) $^ $(LDLIBS) -o $@
+	$(LINK.cc) $^ $(LDLIBS) -o $@  $(LIBS)
 
 $(TESTS_BIN): LDLIBS += -lgtest -lpthread
 $(TESTS_BIN): $(TESTS_OBJ)

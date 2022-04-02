@@ -13,6 +13,7 @@
 - Average Clustering Coefficient
 - Eigenvector Centrality
 - Average Path Length
+- Weak Paths
 
 
 
@@ -56,11 +57,6 @@ get_edge_distance(G1, G2)
 -> data (matrices; listes d'adjacence)
 
 ***********************************
-# *Data sets*
-
-https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/OPQMVF
-
-***********************************
 # *Manipulation des graphes*
 
 Bibliothèque de manipulation de graphes en C
@@ -86,6 +82,8 @@ http://www-sop.inria.fr/members/Guillaume.Ducoffe/slides/slides-algotel-2015-2.p
 
 ****************************************************************
 # *DataSets*
+
+https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/OPQMVF
 
 https://www.kaggle.com/ymirsky/network-attack-dataset-kitsune
 
