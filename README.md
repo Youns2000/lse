@@ -1,5 +1,10 @@
 # LSE detection d'anomalie sur des graphes de donnée
 
+> # *LIBS TO INSTALL*
+
+- graphviz
+- graphviz-dev
+
 > # *METRIQUES*
 - Average Degree
 - Average Weighted Degree

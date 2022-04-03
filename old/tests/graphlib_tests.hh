@@ -3,45 +3,65 @@
 
 using namespace std;
 
-// TEST(graphlib_tests, get_nb_nodes)
-// {
-//     std::vector<std::vector<std::pair<int, float>>> adj_list = 
-//     {
-//         {
-//             make_pair(1, 6.),
-//             make_pair(2, 6.)
-//         },
-//         {
-//             make_pair(3, 6.),
-//             make_pair(4, 6.)
-//         },
-//         {
-//             make_pair(5, 6.),
-//             make_pair(6, 6.)
-//         },
-//         {
-//             make_pair(7, 6.),
-//             make_pair(8, 6.)
-//         }
-//     };
+TEST(graphlib_tests, get_nb_nodes)
+{
+    Graph<int> g(
+        false,
+        {
+            {
+                make_pair(1, 6.),
+                make_pair(2, 6.)
+            },
+            {
+                make_pair(3, 6.),
+                make_pair(4, 6.)
+            },
+            {
+                make_pair(5, 6.),
+                make_pair(6, 6.)
+            },
+            {
+                make_pair(7, 6.),
+                make_pair(8, 6.)
+            }
+        }
+    );
 
-//     vector<vector<pair<int, int>>> expected_adj_list = 
-//     {
-//         {make_pair(1, 6)},
-//         {make_pair(3, 2), make_pair(90, 2)},
-//         {make_pair(1, 3)}
-//     };
+    std::cout << g.is_directed_;
+    std::cout << g.get_nb_edges();
 
-//     vector<vector<pair<int, int>>> adj_list = g.convert_to_adjancy_list();
+    // std::vector<std::vector<std::pair<int, float>>> adj_list = 
+    // {
+    //     {
+    //         make_pair(1, 6.),
+    //         make_pair(2, 6.)
+    //     },
+    //     {
+    //         make_pair(3, 6.),
+    //         make_pair(4, 6.)
+    //     },
+    //     {
+    //         make_pair(5, 6.),
+    //         make_pair(6, 6.)
+    //     },
+    //     {
+    //         make_pair(7, 6.),
+    //         make_pair(8, 6.)
+    //     }
+    // };
 
-//     EXPECT_EQ(adj_list.size(), expected_adj_list.size());
-//     EXPECT_EQ(adj_list, expected_adj_list);
+    // vector<vector<pair<int, int>>> expected_adj_list = 
+    // {
+    //     {make_pair(1, 6)},
+    //     {make_pair(3, 2), make_pair(90, 2)},
+    //     {make_pair(1, 3)}
+    // };
 
-//     for (size_t i = 0; i < expected_adj_list.size(); i++)
-//     {
-//         EXPECT_EQ(adj_list[i], expected_adj_list[i]);   
-//     }
-// }
+    // vector<vector<pair<int, int>>> adj_list = g.convert_to_adjancy_list();
+
+    // EXPECT_EQ(adj_list.size(), expected_adj_list.size());
+    // EXPECT_EQ(adj_list, expected_adj_list);
+}
 
 // TEST(graphlib_tests, get_nb_edges)
 // {
