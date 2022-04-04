@@ -36,48 +36,63 @@ int get_nb_edges(std::vector<std::vector<std::pair<int, float>>> adj_list, bool 
     return is_directed ? (two + total) : total;
 }
 
-bool is_connected(std::vector<std::vector<std::pair<int, float>>> adj_list, bool is_directed)
+template <class T>
+void print_vec(std::string name, std::vector<T> vec)
 {
-    auto n = get_nb_edges(adj_list, is_directed);
+    std::cout << name << ": ";
+    for (size_t i = 0; i < vec.size(); i++)
+        std::cout << vec[i] << " ";
+    std::cout << "\n";
+}
+
+bool is_connected(std::vector<std::vector<std::pair<int, float>>> adj_list)
+{
+    auto n = get_nb_nodes(adj_list);
     if (n == 0)
         return true;
 
-    std::vector<bool> touched;
-    touched.resize(n, false);
+    std::vector<bool> touched(n, false);
     touched[0] = true;
 
     std::vector<int> todo;
-    todo.resize(1, 0);
-
-    for (auto& i : todo)
-        std::cout << i << std::endl;
+    todo.push_back(0);
 
     while (!todo.empty())
     {
         int s = todo.back();
         todo.pop_back();
-        for (auto& d : adj_list[s])
+        for (size_t i = 0; i < adj_list[s].size(); i++)
         {
-            if (!touched[d.first])
+            // std::cout << s << i << std::endl;
+            if (adj_list[s][i].first >= n)
+                continue;
+            if (!touched[adj_list[s][i].first])
             {
-                touched[d.first] = true;
-                todo.push_back(d.first);
+                touched[adj_list[s][i].first] = true;
+                todo.push_back(adj_list[s][i].first);
             }
         }
     }
-    auto sum = 0;
     for (size_t i = 0; i < touched.size(); i++)
     {
-        if (touched[i])
-            sum++;
+        if (!touched[i])
+            return false;
     }
-    return sum == n;
+    return true;
 }
 
-// bool is_edge_connected(std::vector<std::vector<std::pair<int, float>>> adj_list)
-// {
-//     return true;
-// }
+bool is_edge_connected(std::vector<std::vector<std::pair<int, float>>> adj_list, bool is_directed)
+{
+    auto n = get_nb_nodes(adj_list);
+    auto m = get_nb_edges(adj_list, is_directed);
+    if (n == 0 || m == 0)
+        return true;
+
+    std::vector<bool> touched(n, false);
+    
+
+    return true;
+}
 
 // std::vector<std::vector<std::pair<int, float>>> from_edges_to_adj_list(std::vector<std::tuple<int, float, int>>)
 // {
@@ -101,6 +116,24 @@ std::vector<std::tuple<int, float, int>> from_adj_list_to_edges(std::vector<std:
 
     std::cout << is_directed << std::endl;
     return edges;
+}
+
+// Time Complexity: O(N*M) 
+// Auxiliary Space: O(N2)
+std::vector<std::vector<int>> from_adj_list_to_adj_matrix(std::vector<std::vector<std::pair<int, float>>> adj_list, bool is_directed)
+{
+    int n = get_nb_nodes(adj_list);
+    std::vector<std::vector<int>> matrix(n, std::vector<int>(n, 0));
+    for (int i = 0; i < n; i++)
+    {
+        for (auto& j : adj_list[i])
+        {
+            if (!is_directed)
+                matrix[j.first][i] = j.second;
+            matrix[i][j.first] = j.second;
+        }
+    }
+    return matrix;
 }
 
 
@@ -193,11 +226,13 @@ std::vector<std::vector<std::pair<int, float>>> random_graph_generator(int nb_ve
     int min = ((moy_edges - 2 > 0) ? (moy_edges - 2) : 0);
     int max = moy_edges + 2;
 
+    std::cout << "min:" << min << "max:" << max << std::endl;
+
     srand(time(0));
 
     for (int i = 0; i < nb_vertices; i++)
     {
-        if (total_edges_placed != nb_edges)
+        if ((i < nb_vertices - 1) || (total_edges_placed == nb_edges))
         {
             rand_nb_edges = (rand() % max) + min;
             total_edges_placed += rand_nb_edges;
@@ -256,7 +291,7 @@ void graph_print_params(std::vector<std::vector<std::pair<int, float>>> adj_list
     std::cout << name << "(" << (is_directed ? "directed" : "undirected") << ") :" << std::endl
               << "Nb of nodes: " << get_nb_nodes(adj_list) << std::endl
               << "Nb of edges: " << get_nb_edges(adj_list, is_directed) << std::endl
-            //   << "is connected: " << is_connected(adj_list, is_directed) << std::endl
+              << "is connected: " << std::boolalpha << is_connected(adj_list) << std::endl
               << "average degree: " << get_average_degree(adj_list) << std::endl
               << "average weighted degree: " << get_average_weighted_degree(adj_list) << std::endl << std::endl;
     graphs_save(name, adj_list, is_directed);

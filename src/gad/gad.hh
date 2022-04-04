@@ -9,33 +9,40 @@
 #include <time.h>
 #include <graphviz/gvc.h>
 
+// https://www.simplilearn.com/tutorials/data-structure-tutorial/graphs-in-data-structure
 enum graph_type
 {
+    SIMPLE,
+    REGULAR,
+    CYCLIC,
+
+
     COMPLETE,
     QUASI_COMPLETE,
     INTERMEDIARY,
     SPARSE
 };
 
-// def is_connected(n, edges):
-//     if n == 0:
+// def is_edge_connected(n, edges):
+//     if n == 0 or len(edges) == 0:
 //         return True
 //     # Convert to adjacency list
 //     succ = [[] for a in range(n)]
 //     for (a,b) in edges:
 //         succ[a].append(b)
 //         succ[b].append(a)
-//     # DFS over the graph
+//     # DFS over the graph, starting from one extremity of the first edge
 //     touched = [False] * n
-//     touched[0] = True
-//     todo = [0]
+//     init = edges[0][0]
+//     touched[init] = True
+//     todo = [init]
 //     while todo:
 //         s = todo.pop()
 //         for d in succ[s]:
 //             if not touched[d]:
 //                 touched[d] = True
 //                 todo.append(d)
-//     return sum(touched) == n
+//     return all(touched[a] or not succ[a] for a in range(n))
 
 void graph_print_params(std::vector<std::vector<std::pair<int, float>>> adj_list, bool is_directed, std::string name);
 
@@ -43,7 +50,7 @@ int get_nb_nodes(std::vector<std::vector<std::pair<int, float>>> adj_list);
 int get_nb_edges(std::vector<std::vector<std::pair<int, float>>> adj_list, bool is_directed);
 
 bool is_connected(std::vector<std::vector<std::pair<int, float>>> adj_list);
-bool is_edge_connected(std::vector<std::vector<std::pair<int, float>>> adj_list);
+bool is_edge_connected(std::vector<std::vector<std::pair<int, float>>> adj_list, bool is_directed);
 
 // GRAPHS CONVERTERS
 std::vector<std::vector<std::pair<int, float>>> from_edges_to_adj_list(std::vector<std::tuple<int, float, int>> edges, bool is_directed);

@@ -1,4 +1,4 @@
-CXX = g++
+CXX = g++ -g
 CXXFLAGS = -Wall -Wextra -Werror -pedantic -std=c++20 -Isrc/
 LIBS = -lgvc -lcgraph
 
