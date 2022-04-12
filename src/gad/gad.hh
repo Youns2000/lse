@@ -1,13 +1,17 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 #include <vector>
 #include <tuple>
 #include <fstream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <queue>
 #include <graphviz/gvc.h>
+
+using namespace std;
 
 // https://www.simplilearn.com/tutorials/data-structure-tutorial/graphs-in-data-structure
 enum graph_type
@@ -15,60 +19,43 @@ enum graph_type
     SIMPLE,
     REGULAR,
     CYCLIC,
-
-
     COMPLETE,
     QUASI_COMPLETE,
     INTERMEDIARY,
     SPARSE
 };
 
-// def is_edge_connected(n, edges):
-//     if n == 0 or len(edges) == 0:
-//         return True
-//     # Convert to adjacency list
-//     succ = [[] for a in range(n)]
-//     for (a,b) in edges:
-//         succ[a].append(b)
-//         succ[b].append(a)
-//     # DFS over the graph, starting from one extremity of the first edge
-//     touched = [False] * n
-//     init = edges[0][0]
-//     touched[init] = True
-//     todo = [init]
-//     while todo:
-//         s = todo.pop()
-//         for d in succ[s]:
-//             if not touched[d]:
-//                 touched[d] = True
-//                 todo.append(d)
-//     return all(touched[a] or not succ[a] for a in range(n))
+int get_nb_nodes(vector<vector<pair<int, float>>> adj_list);
+int get_nb_edges(vector<vector<pair<int, float>>> adj_list, bool is_directed);
 
-void graph_print_params(std::vector<std::vector<std::pair<int, float>>> adj_list, bool is_directed, std::string name);
-
-int get_nb_nodes(std::vector<std::vector<std::pair<int, float>>> adj_list);
-int get_nb_edges(std::vector<std::vector<std::pair<int, float>>> adj_list, bool is_directed);
-
-bool is_connected(std::vector<std::vector<std::pair<int, float>>> adj_list);
-bool is_edge_connected(std::vector<std::vector<std::pair<int, float>>> adj_list, bool is_directed);
+bool is_connected(vector<vector<pair<int, float>>> adj_list);
+bool is_edge_connected(vector<vector<pair<int, float>>> adj_list, bool is_directed);
 
 // GRAPHS CONVERTERS
-std::vector<std::vector<std::pair<int, float>>> from_edges_to_adj_list(std::vector<std::tuple<int, float, int>> edges, bool is_directed);
-std::vector<std::tuple<int, float, int>> from_adj_list_to_edges(std::vector<std::vector<std::pair<int, float>>> adj_list, bool is_directed);
-std::vector<std::vector<int>> from_adj_list_to_adj_matrix(std::vector<std::vector<std::pair<int, float>>> adj_list, bool is_directed);
+vector<vector<pair<int, float>>> from_edges_to_adj_list(vector<tuple<int, float, int>> edges, bool is_directed);
+vector<tuple<int, float, int>> from_adj_list_to_edges(vector<vector<pair<int, float>>> adj_list);
+vector<vector<int>> from_adj_list_to_adj_matrix(vector<vector<pair<int, float>>> adj_list, bool is_directed);
+pair<vector<vector<pair<int, float>>>, bool> read_dot(string file_path);
+void write_dot(const string filename, vector<vector<pair<int, float>>> adj_list, bool is_directed);
+
+
+
 
 // GRAPHS METRICS
-float get_average_degree(std::vector<std::vector<std::pair<int, float>>> adj_list);
-float get_average_weighted_degree(std::vector<std::vector<std::pair<int, float>>> adj_list);
-int get_average_path_length(std::vector<std::vector<std::pair<int, float>>> adj_list);
-int get_diameter(std::vector<std::vector<std::pair<int, float>>> adj_list);
-float get_density(std::vector<std::vector<std::pair<int, float>>> adj_list);
-float get_modularity(const std::vector<std::vector<std::pair<int, float>>> adj_list);
+float get_average_degree(vector<vector<pair<int, float>>> adj_list);
+float get_average_weighted_degree(vector<vector<pair<int, float>>> adj_list);
+int get_distance(vector<vector<pair<int, float>>>& adj_list, int start, int target);
+int get_diameter(vector<vector<pair<int, float>>> adj_list);
+float get_average_path_length(vector<vector<pair<int, float>>> adj_list);
+float get_density(vector<vector<pair<int, float>>> adj_list, bool is_directed);
+float get_modularity(vector<vector<pair<int, float>>> adj_list, bool is_directed);
+int get_eccentricity(vector<vector<pair<int, float>>> adj_list, bool is_directed);
 
 // GRAPHS GENERATORS
-std::vector<std::vector<std::pair<int, float>>> random_graph_generator(int nb_vertices, int nb_edges, unsigned seed, int weights_seed);
-std::vector<std::vector<std::pair<int, float>>> complete_graph_generator(int nb_vertices, unsigned seed, int weights_seed);
+vector<vector<pair<int, float>>> random_graph_generator(int nb_vertices, int nb_edges, unsigned seed, int weights_seed, bool is_directed);
+vector<vector<pair<int, float>>> complete_graph_generator(int nb_vertices, unsigned seed, int weights_seed);
 
-// GRAPHS SAVE & DISPLAY
-void graphs_save(const std::string filename, std::vector<std::vector<std::pair<int, float>>> adj_list, bool is_directed);
-bool convert_to_png(std::string file_path);
+// DISPLAY
+bool convert_to_png(string file_path);
+void print_graph_props(vector<vector<pair<int, float>>> adj_list, bool is_directed, string name);
+void print_adj_list(vector<vector<pair<int, float>>> adj_list);

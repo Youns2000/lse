@@ -20,6 +20,7 @@
 - Average Path Length
 - Weak Paths
 
+https://barabasi.com/f/625.pdf
 
 
 

@@ -1,5 +1,5 @@
 CXX = g++ -g
-CXXFLAGS = -Wall -Wextra -Werror -pedantic -std=c++20 -Isrc/
+CXXFLAGS = -Wall -Wextra -Werror -pedantic -std=c++20 -fPIC -Isrc/
 LIBS = -lgvc -lcgraph
 
 ARFLAGS ?= rcs
