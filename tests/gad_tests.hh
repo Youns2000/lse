@@ -14,6 +14,27 @@ vector<vector<pair<int, float>>> adj =
     }
 };
 
+struct graph_test
+{
+    string path;
+    string name;
+    int nb_nodes;
+    int nb_edges;
+    bool is_connected;
+    bool is_edge_connected;
+    float average_degree;
+    float average_weighted_degree;
+    float diameter;
+    float average_path_length;
+    float density;
+    float modularity;
+};
+
+struct graph_test g0;
+g0.path = "graphs_sets/G0.dot";
+g0.path = "graphs_sets/G0.dot";
+g0.path = "graphs_sets/G0.dot";
+
 
 
 TEST(Basics, get_nb_edges)
