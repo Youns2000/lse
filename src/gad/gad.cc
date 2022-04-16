@@ -18,6 +18,16 @@ bool contains(vector<pair<int, int>> vec, pair<int, int> elem)
     return false;
 }
 
+bool exist(vector<vector<pair<int, float>>> adj_list, int i, int j)
+{
+    for (size_t k = 0; k < adj_list[i].size(); k++)
+    {
+        if (get<0>(adj_list[i][k]) == j)
+            return true;
+    }
+    return false;
+}
+
 int get_nb_edges(vector<vector<pair<int, float>>> adj_list, bool is_directed)
 {
     int total = 0;
@@ -174,6 +184,19 @@ vector<vector<int>> from_adj_list_to_adj_matrix(vector<vector<pair<int, float>>>
     return matrix;
 }
 
+vector<vector<pair<int, float>>> from_directed_to_undirected_graph(vector<vector<pair<int, float>>>& adj_list)
+{
+    for (size_t i = 0; i < adj_list.size(); i++)
+    {
+        for (size_t j = 0; j < adj_list[i].size(); j++)
+        {
+            size_t k = get<0>(adj_list[i][j]);
+            if (!exist(adj_list, k, i))
+                adj_list[k].push_back(make_pair(i, get<1>(adj_list[i][j])));
+        }
+    }
+    return adj_list;
+}
 
 pair<vector<vector<pair<int, float>>>, bool> read_dot(string file_path)
 {
@@ -190,47 +213,67 @@ pair<vector<vector<pair<int, float>>>, bool> read_dot(string file_path)
     else if (line.find("graph") != string::npos)
         is_directed = false;
     else
-        throw ios_base::failure("Error during parsing first line of the dot file");
+        throw ios_base::failure("Error during parsing first line of the dot file.");
     
-    cout << is_directed << endl;
     string src_node, dst_node, weight_str, sign;
-    // int src, dst;
-    // int index = 0;
-    // float weight = 1.;
+    int src = 0, dst = 0;
+    int index = -1;
+    float weight;
+    int max = 0;
+
     while (file_in.good())
     {
+        weight = 1.;
         file_in >> src_node;
+        if (src_node.compare("}") == 0)
+            break;
         file_in >> sign;
+        if ((!sign.compare("->") && !is_directed) || (!sign.compare("-") && is_directed))
+            throw ios_base::failure("Error with graph orientation and file sign.");
         file_in >> dst_node;
+        file_in >> weight_str;
         
-        if (line.find("weight") == string::npos)
-            dst_node.pop_back();
-        else
+        src = stoi(src_node);
+        dst = stoi(dst_node);
+        if (src > max)
+            max = src;
+        else if (dst > max)
+            max = dst;
+        weight = stof(weight_str.substr(weight_str.find("=") + 1, weight_str.find("]") - weight_str.find("=") - 1));
+
+        // cout << src << " " << sign << " " << dst << " [weight=" << weight << "];" << endl;
+
+        if (index < src)
         {
-            file_in >> weight_str;
-            size_t eq = weight_str.find("=");
-            size_t brac = weight_str.find("]");
-            cout << weight_str.substr(eq, brac) << endl;
+            if (index + 1 == src)
+            {
+                index++;
+                adj_list.push_back(vector<pair<int, float>>());
+                adj_list[index].push_back(make_pair(dst, weight));
+            }
+            else
+            {
+                for (; index < src; index++)
+                    adj_list.push_back(vector<pair<int, float>>());
+                adj_list[index].push_back(make_pair(dst, weight));
+            }
         }
-
-        // src = stoi(src_node);
-        // dst = stoi(dst_node);
-
-        cout << src_node << " " << dst_node << endl;
-
-        // if (src > index)
-        // {
-        //     for (; index < src; index++)
-        //         adj_list.push_back(vector<pair<int, float>>());
-        // }
-        // else if (src == index)
-        //     adj_list[index].push_back(make_pair(dst, 1.));
+        else if (src == index)
+            adj_list[index].push_back(make_pair(dst, weight));
     }
-    
+
+    if (index < max)
+    {
+        for (; index < max; index++)
+                    adj_list.push_back(vector<pair<int, float>>());
+    }
+
     file_in.close();
+
+    if (!is_directed)
+        adj_list = from_directed_to_undirected_graph(adj_list);
     return make_pair(adj_list, is_directed);
 }
-
 
 // GRAPHS METRICS
 
@@ -385,9 +428,6 @@ vector<vector<pair<int, float>>> random_graph_generator(int nb_vertices, int nb_
         }
         else
             adj_list.push_back(tmp_edges);
-
-        cout << "rand_nb_edges: " << rand_nb_edges << endl;
-        cout << "total_edges_placed: " << total_edges_placed << endl;
 
         if (is_directed)
         {
