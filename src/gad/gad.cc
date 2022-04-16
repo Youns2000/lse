@@ -365,7 +365,6 @@ float get_average_path_length(vector<vector<pair<int, float>>> adj_list)
     return (float)avg_p_length/(float)nb_dist;
 }
 
-
 float get_density(vector<vector<pair<int, float>>> adj_list, bool is_directed)
 {
     float n = get_nb_nodes(adj_list);

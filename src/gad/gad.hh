@@ -40,8 +40,8 @@ void write_dot(const string filename, vector<vector<pair<int, float>>> adj_list,
 
 
 // GRAPHS METRICS
-float get_average_degree(vector<vector<pair<int, float>>> adj_list);
-float get_average_weighted_degree(vector<vector<pair<int, float>>> adj_list);
+float get_average_degree(vector<vector<pair<int, float>>> adj_list, bool is_directed);
+float get_average_weighted_degree(vector<vector<pair<int, float>>> adj_list, bool is_directed);
 int get_distance(vector<vector<pair<int, float>>>& adj_list, int start, int target);
 int get_diameter(vector<vector<pair<int, float>>> adj_list);
 float get_average_path_length(vector<vector<pair<int, float>>> adj_list);

@@ -27,15 +27,15 @@ for i in range(5):
     print("nb nodes: " + str(nx.number_of_nodes(G)))
     print("nb edges: " + str(nx.number_of_edges(G)))
     print("directed: " + str(nx.is_directed(G)))
-    if not nx.is_directed(G):
-        print("connected: " + str(nx.is_connected(G)))
-    else:
-        print("connected: " + str(nx.is_connected(G)))
+    co = False
+    if (not nx.is_directed(G) and nx.is_connected(G)) or (nx.is_directed(G) and nx.is_strongly_connected(G)):
+        co = True
+    print("connected: " + str(co))
     print("average_degree: " + str(sum(n for _, n in G.degree(list(G.nodes))) / len(list(G.nodes))))
-    print(G.degree(weight='weight'))
+    # print(G.degree(weight='weight'))
     # print("average weighted degree: " + str(sum(n for _, n in G.degree(weight='weight')) / len(list(G.nodes))))
     # print("average weighted degree: " + str(0))
-    if not nx.is_directed(G) and nx.is_connected(G):
+    if co:
         print("diameter: " + str(nx.diameter(G)))
         print("average_path_length_: " + str(nx.average_shortest_path_length(G)))
         print("density: " + str(nx.density(G)))

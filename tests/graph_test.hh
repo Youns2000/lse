@@ -33,7 +33,7 @@ public:
     bool is_connected_;
     float average_degree_;
     float average_weighted_degree_;
-    float diameter_;
+    int diameter_;
     float average_path_length_;
     float density_;
     float modularity_;
