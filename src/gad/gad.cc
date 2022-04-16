@@ -386,8 +386,8 @@ vector<vector<pair<int, float>>> random_graph_generator(int nb_vertices, int nb_
         else
             adj_list.push_back(tmp_edges);
 
-        cout << "rand_nb_edges: " << rand_nb_edges << endl;
-        cout << "total_edges_placed: " << total_edges_placed << endl;
+        // cout << "rand_nb_edges: " << rand_nb_edges << endl;
+        // cout << "total_edges_placed: " << total_edges_placed << endl;
 
         if (is_directed)
         {

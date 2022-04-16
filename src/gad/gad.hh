@@ -39,8 +39,6 @@ pair<vector<vector<pair<int, float>>>, bool> read_dot(string file_path);
 void write_dot(const string filename, vector<vector<pair<int, float>>> adj_list, bool is_directed);
 
 
-
-
 // GRAPHS METRICS
 float get_average_degree(vector<vector<pair<int, float>>> adj_list);
 float get_average_weighted_degree(vector<vector<pair<int, float>>> adj_list);

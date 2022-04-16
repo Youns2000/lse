@@ -9,7 +9,7 @@ fig = plt.figure(figsize=(12,12))
 ax = plt.subplot(111)
 # ax.set_title('Graph - Shapes', fontsize=10)
 
-G = nx.gnm_random_graph(10, 20, directed=False)
+G = nx.gnm_random_graph(6, 8, directed=False)
 # G.add_node()
 # G.add_node()
 # G.add_node()
