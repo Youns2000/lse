@@ -1,5 +1,6 @@
 #include "../src/gad/gad.hh"
 #include <gtest/gtest.h>
+#include "graph_test.hh"
 
 using namespace std;
 
@@ -14,40 +15,32 @@ vector<vector<pair<int, float>>> adj =
     }
 };
 
-struct graph_test
-{
-    string path;
-    string name;
-    int nb_nodes;
-    int nb_edges;
-    bool is_connected;
-    bool is_edge_connected;
-    float average_degree;
-    float average_weighted_degree;
-    float diameter;
-    float average_path_length;
-    float density;
-    float modularity;
-};
-
-struct graph_test g0;
-g0.path = "graphs_sets/G0.dot";
-g0.path = "graphs_sets/G0.dot";
-g0.path = "graphs_sets/G0.dot";
-
-
+auto g0 = GraphTest {
+        "graphs_sets/G0.dot",
+        "G0",
+        100,
+        200,
+        false,
+        true,
+        0,
+        0,
+        7,
+        3.351357037660425,
+        0.042078687144961074,
+        0
+    };
 
 TEST(Basics, get_nb_edges)
 {
-    
-    EXPECT_EQ(8, get_nb_edges(adj, false));
+    auto adj = read_dot("graphs_sets/G0.dot");
+    EXPECT_EQ(g0.nb_edges, get_nb_edges(get<0>(adj), get<1>(adj)));
 }
 
-TEST(Basics, get_nb_nodes)
-{
+// TEST(Basics, get_nb_nodes)
+// {
     
-    EXPECT_EQ(9, get_nb_nodes(adj));
-}
+//     EXPECT_EQ(9, get_nb_nodes(adj));
+// }
 
 // TEST(graphlib_tests, get_nb_edges)
 // {
