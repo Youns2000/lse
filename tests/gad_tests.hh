@@ -4,22 +4,67 @@
 
 using namespace std;
 
-vector<vector<pair<int, float>>> adj = 
-{
-    {
-        {make_pair(1, 6.), make_pair(2, 6.)},
-        {make_pair(3, 6.), make_pair(4, 6.)},
-        {make_pair(5, 6.), make_pair(6, 6.)},
-        {make_pair(7, 6.), make_pair(8, 6.)},
-        {}, {}, {}, {}, {}
-    }
-};
-
 auto g0 = GraphTest {
         "graphs_sets/G0.dot",
         "G0",
         100,
-        200,
+        300,
+        false,
+        true,
+        6,
+        0,
+        5,
+        2.7264646464646463,
+        0.06060606060606061,
+        0
+    };
+auto g1 = GraphTest {
+        "graphs_sets/G1.dot",
+        "G1",
+        100,
+        300,
+        false,
+        true,
+        0,
+        0,
+        7,
+        3.351357037660425,
+        0.042078687144961074,
+        0
+    };
+auto g2 = GraphTest {
+        "graphs_sets/G0.dot",
+        "G0",
+        100,
+        300,
+        false,
+        true,
+        0,
+        0,
+        7,
+        3.351357037660425,
+        0.042078687144961074,
+        0
+    };
+auto g3 = GraphTest {
+        "graphs_sets/G0.dot",
+        "G0",
+        100,
+        300,
+        false,
+        true,
+        0,
+        0,
+        7,
+        3.351357037660425,
+        0.042078687144961074,
+        0
+    };
+auto g4 = GraphTest {
+        "graphs_sets/G0.dot",
+        "G0",
+        100,
+        300,
         false,
         true,
         0,
@@ -30,10 +75,21 @@ auto g0 = GraphTest {
         0
     };
 
-TEST(Basics, get_nb_edges)
+vector graphs = {g0, g1, g2, g3, g4};
+
+auto adj = read_dot("./tests/graphs_sets/G0.dot");
+
+TEST(Metrics, get_nb_nodes)
 {
-    auto adj = read_dot("graphs_sets/G0.dot");
-    EXPECT_EQ(g0.nb_edges, get_nb_edges(get<0>(adj), get<1>(adj)));
+    for (auto& g : graphs)
+    {
+        EXPECT_EQ(g.nb_nodes_, get_nb_nodes(get<0>(adj)));
+    }
+}
+
+TEST(G0, get_nb_edges)
+{
+    EXPECT_EQ(g0.nb_edges_, get_nb_edges(get<0>(adj), get<1>(adj)));
 }
 
 // TEST(Basics, get_nb_nodes)

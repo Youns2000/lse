@@ -227,6 +227,12 @@ pair<vector<vector<pair<int, float>>>, bool> read_dot(string file_path)
         file_in >> src_node;
         if (src_node.compare("}") == 0)
             break;
+        else if (src_node.find(";") != string::npos)
+        {
+            adj_list.push_back(vector<pair<int, float>>());
+            index++;
+            break;
+        }
         file_in >> sign;
         if ((!sign.compare("->") && !is_directed) || (!sign.compare("-") && is_directed))
             throw ios_base::failure("Error with graph orientation and file sign.");
