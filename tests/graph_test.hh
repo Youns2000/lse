@@ -5,6 +5,7 @@ using namespace std;
 class GraphTest
 {
 public:
+    GraphTest() = default;
     GraphTest(string path,
     string name,
     int nb_nodes,
@@ -23,7 +24,14 @@ public:
     , diameter_(diameter), average_path_length_(average_path_length)
     , density_(density), modularity_(modularity)
     {}
-    // ~GraphTest();
+
+    // GraphTest* props_reader(string file_path, string name);
+
+    // friend std::ostream& operator<<(std::ostream& os, const GraphTest& g)
+    // {
+        
+    //     return os;
+    // }
 
     string path_;
     string name_;
@@ -39,3 +47,55 @@ public:
     float modularity_;
 
 };
+
+GraphTest props_reader(string file_path, string name)
+{
+    ifstream file_in(file_path);
+    if (!file_in.is_open())
+        throw ios_base::failure("Error opening file");
+
+    GraphTest g;
+    g.path_ = file_path;
+    g.name_ = name;
+
+    string nbn, nbe, diam , isd, isc, avg, avgw, avgp, dens, mod;
+
+    while (file_in.good())
+    {
+        file_in >> nbn;
+        g.nb_nodes_ = stoi(nbn);
+
+        file_in >> nbe;
+        g.nb_edges_ = stoi(nbe);
+
+        file_in >> isd;
+        g.is_directed_ = (isd == "True" ? true : false);
+
+        file_in >> isc;
+        g.is_connected_ = (isc == "True" ? true : false);
+
+        // file_in >> avg;
+        // g.average_degree_ = stof(avg);
+        g.average_degree_ = 0.;
+
+        file_in >> avgw;
+        g.average_weighted_degree_ = stof(avgw);
+        
+        file_in >> diam;
+        g.diameter_ = stof(diam);
+
+        file_in >> avgp;
+        g.average_path_length_ = stof(avgp);
+
+        file_in >> dens;
+        g.density_ = stof(dens);
+
+        g.modularity_ = 0.;
+
+        // file_in >> g.modularity_;
+        // g.is_directed_ = stof(mod);
+    }
+
+    file_in.close();
+    return g;
+}

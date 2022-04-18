@@ -287,8 +287,8 @@ float get_average_degree(vector<vector<pair<int, float>>> adj_list, bool is_dire
 {
     int avg_deg = 0;
     for (size_t i = 0; i < adj_list.size(); i++)
-        avg_deg += adj_list[i].size();    
-    return ((float)(is_directed ? 1 : 2) * (float)avg_deg) / (float)adj_list.size();
+        avg_deg += adj_list[i].size();
+    return ((float)(is_directed ? 1 : 1) * (float)avg_deg) / (float)adj_list.size();
 }
 
 float get_average_weighted_degree(vector<vector<pair<int, float>>> adj_list, bool is_directed)
@@ -299,20 +299,22 @@ float get_average_weighted_degree(vector<vector<pair<int, float>>> adj_list, boo
         for (size_t j = 0; j < adj_list[i].size(); j++)
             avg_w_deg += adj_list[i][j].second;
     }
-    return ((float)(is_directed ? 1 : 2) * (float)avg_w_deg) / (float)adj_list.size();
+    return ((float)(is_directed ? 1 : 1) * (float)avg_w_deg) / (float)adj_list.size();
 }
 
-int get_distance(vector<vector<pair<int, float>>>& adj_list, int start, int target)
+int get_distance(vector<vector<pair<int, float>>>& adj_list, int src, int dst, bool weighted)
 {
     auto n = get_nb_nodes(adj_list);
 
     vector<bool> touched(n, false);
+    touched[src] = true;
+    
+    vector<int> distance(n, 9999);
+    distance[src] = 0;
+
     queue<int> todo;
-    vector<int> distance(n, 0);
-
-    todo.push(start);
-    touched[start] = true;
-
+    todo.push(src);
+    
     while (!todo.empty())
     {
         auto s = todo.front();
@@ -324,13 +326,14 @@ int get_distance(vector<vector<pair<int, float>>>& adj_list, int start, int targ
                 break;
             if (!touched[adj_list[s][i].first])
             {
-                distance[adj_list[s][i].first] = distance[s] + adj_list[s][i].second;
+                // distance[adj_list[s][i].first] = distance[s] + adj_list[s][i].second;
+                distance[adj_list[s][i].first] = distance[s] + (weighted ? adj_list[s][i].second : 1);
                 todo.push(adj_list[s][i].first);
                 touched[adj_list[s][i].first] = true;
             }
         }
     }
-    return distance[target];
+    return distance[dst];
 }
 
 int get_diameter(vector<vector<pair<int, float>>> adj_list)
@@ -340,7 +343,7 @@ int get_diameter(vector<vector<pair<int, float>>> adj_list)
     {
         for (size_t j = i + 1; j < adj_list.size(); j++)
         {
-            int tmp = get_distance(adj_list, i, j);
+            int tmp = get_distance(adj_list, i, j, false);
             if (tmp > diameter)
                 diameter = tmp;
         }
@@ -357,7 +360,7 @@ float get_average_path_length(vector<vector<pair<int, float>>> adj_list)
     {
         for (size_t j = i + 1; j < adj_list.size(); j++)
         {
-            float tmp = get_distance(adj_list, i, j);
+            float tmp = get_distance(adj_list, i, j, false);
             avg_p_length += tmp;
             nb_dist++;
         }
